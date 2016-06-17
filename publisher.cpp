@@ -17,7 +17,7 @@ int main (int argc, char *argv[]) {
     //  Prepare our context and publisher
     zmq::context_t context (1);
     zmq::socket_t publisher (context, ZMQ_PUB);
-    publisher.bind("tcp://*:5556");
+    publisher.connect("tcp://localhost:5556");
     
     std::cout << "Sending updates ...\n" << std::endl;
 
@@ -26,18 +26,22 @@ int main (int argc, char *argv[]) {
 
     while (1) {
 
-        int temperature, relhumidity;
+        int data;
 
-        const char *filter = (argc > 1)? argv [1]: "Weather";
+        const char *filter = (argc > 1)? argv [1]: "Temperature";
         
         //  Get values that will fool the boss
-        temperature = within (215) - 80;
-        relhumidity = within (50) + 10;
+        if ( strcmp(filter,"Temperature") == 0 )
+            data = within (215) - 80;
+
+        else
+            data = within (50) + 10;
+    
 
         //  Send message to all subscribers
         zmq::message_t message(20);
         snprintf ((char *) message.data(), 20 ,
-            "%s %d %d", filter, temperature, relhumidity);
+            "%s %d", filter, data);
         publisher.send(message);
 
         //std::cout << "Filter: " << sensor << " Temperature: " << temperature << " and Humidity: "<< relhumidity << std::endl;
