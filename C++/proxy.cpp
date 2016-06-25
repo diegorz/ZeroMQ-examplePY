@@ -1,10 +1,11 @@
 //
-//  Proxy example device C++ for ACS
+//  Proxy example on C++
 //	based in Weather proxy created by
 //	Olivier Chamoux <olivier.chamoux@fr.thalesgroup.com>
 //
 // 	Diego R. Zagals <diegorz@me.com>
 //
+
 #include "0mq_helper.hpp"
 
 int main (int argc, char *argv[])

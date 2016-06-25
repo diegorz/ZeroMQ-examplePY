@@ -1,13 +1,20 @@
+//
+//	0mq_helper   
+//
+//  Diego R. Zagals <diegorz@me.com>
+//
+
 #include "zmq.hpp"
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <sstream>
 
 // Events
 
-enum TemperatureStatus { OVERREF, ATREF, BELOWREF};
+
+enum TemperatureStatus { OVERREF, ATREF, BELOWREF };
 
 struct temperatureDataBlockEvent
 {

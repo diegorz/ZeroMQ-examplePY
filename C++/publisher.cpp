@@ -1,13 +1,14 @@
 //
-//  Update server example in C++ 
+//  Publisher example on C++
 //	based on Weather update server created by
 //	Olivier Chamoux <olivier.chamoux@fr.thalesgroup.com>
 //
-//  Binds PUB socket to tcp://*:5556
+//  Connect PUB socket to tcp://localhost:5556 (Frontend)
 //  Publishes random updates
 //
 //  Diego R. Zagals <diegorz@me.com>
 //
+
 #include "0mq_helper.hpp"
 
 #define within(num) (int) ((float) num * random () / (RAND_MAX + 1.0))
@@ -26,25 +27,33 @@ int main (int argc, char *argv[]) {
 
     while (1) {
 
-        int data;
+        //int data;
 
-        const char *filter = (argc > 1)? argv [1]: "Temperature";
+        const char *filter = (argc > 1)? argv [1]: "fridge";
         
         //  Get values that will fool the boss
-        if ( strcmp(filter,"Temperature") == 0 )
+        /*if ( filter == CHANNELNAME_FRIDGE )
             data = within (215) - 80;
 
         else
-            data = within (50) + 10;
+            data = within (50) + 10;*/
     
+        temperatureDataBlockEvent t_data;
+        t_data.absoluteDiff = (double) (within(100));
+        t_data.status = ATREF;
 
         //  Send message to all subscribers
         zmq::message_t message(20);
-        snprintf ((char *) message.data(), 20 ,
+        /*snprintf ((char *) message.data(), 20 ,
             "%s %d", filter, data);
+        publisher.send(message);*/
+
+        snprintf ((char *) message.data(), 20 , 
+            "%s %f %d", filter, t_data.absoluteDiff, t_data.status);
+
         publisher.send(message);
 
-        //std::cout << "Filter: " << sensor << " Temperature: " << temperature << " and Humidity: "<< relhumidity << std::endl;
+        //std::cout << "Send OK" << std::endl;
         
     }
     return 0;
