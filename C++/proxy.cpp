@@ -34,22 +34,3 @@ int main (int argc, char *argv[])
     
     return 0;
 }
-
-    /*//  Shunt messages out to our own subscribers
-    while (1) {
-        while (1) {
-            zmq::message_t message;
-            int more;
-            size_t more_size = sizeof (more);
-
-            //  Process all parts of the message
-            frontend.recv(&message);
-            frontend.getsockopt( ZMQ_RCVMORE, &more, &more_size);
-            backend.send(message, more? ZMQ_SNDMORE: 0);
-            if (!more)
-                std::cout << "No more messages...\n" << std::endl;
-                break;      //  Last message part
-        }
-    }
-    return 0;
-}*/

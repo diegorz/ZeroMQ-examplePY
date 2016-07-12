@@ -9,11 +9,13 @@
 #include <iomanip>
 #include <string>
 #include <sstream>
+#include <cstdio>
+#include <cstdlib>
 
 #include <time.h>
 #include <assert.h>
-#include <stdlib.h>        // random()  RAND_MAX
-#include <stdio.h>
+//#include <stdlib.h>        // random()  RAND_MAX
+//#include <stdio.h>
 #include <stdarg.h>
 #include <signal.h>
 
@@ -70,6 +72,17 @@
 
 #endif
 
+#define MAX_ALLOWED_DELAY 1000 // msecs
+
+//  StructuredEvent
+enum TemperatureStatus { OVERREF, ATREF, BELOWREF };
+
+struct temperatureDataBlockEvent
+{
+    float absoluteDiff;
+    TemperatureStatus status;
+};
+
 //  Provide random number from 0..(num-1)
 #define within(num) (int) ((float) (num) * random () / (RAND_MAX + 1.0))
 
@@ -79,7 +92,7 @@ s_recv (zmq::socket_t & socket) {
 
     zmq::message_t message;
     socket.recv(&message);
-
+  
     return std::string(static_cast<char*>(message.data()), message.size());
 }
 
