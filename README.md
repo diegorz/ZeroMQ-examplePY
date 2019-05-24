@@ -1,9 +1,11 @@
-# ZeroMQ-ACS
-### ZeroMQ as an alternative to the CORBA Notification Service for Alma Common Software
-For use in:
+# ZeroMQ-Examples
 
-* C++: You need to execute "./build all" and then you can run ./proxy , ./publisher and ./subscriber
+For use:
 
-* Java:
+- C++: 
+  You need to execute "./build all" and then you can run ./proxy , ./publisher and ./subscriber
 
-* Python:
+- Java:
+
+- Python: 
+  You can configure the pattern that you want to use in the file communication.py and then you can run the scripts server_zmq.py and client_zmq.py
